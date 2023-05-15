@@ -49,7 +49,7 @@ export function Routes() {
   }, [])
 
   return (
-    <NavigationContainer theme={theme}>
+    <NavigationContainer theme={theme} linking={linking}>
       <AppRoutes />
 
       {
