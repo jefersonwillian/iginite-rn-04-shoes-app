@@ -11,6 +11,7 @@ import { CartContextProvider } from './src/contexts/CartContext';
 
 import OneSignal from 'react-native-onesignal';
 import { tagUserInfoCreate } from './src/notifications/notificationsTags';
+import { useEffect } from 'react';
 
 const oneSignalAppId = Platform.OS === 'ios' ? '' : '7486666a-de69-47a2-a23b-f13b44d8e0f4';
 OneSignal.setAppId(oneSignalAppId);
@@ -24,6 +25,14 @@ export default function App() {
   
   tagUserInfoCreate();
 
+  useEffect(() => {
+    const unsubscribe = OneSignal.setNotificationOpenedHandler(() => {
+      console.log('Notificação aberta');
+    })
+
+    return () => unsubscribe
+  }, []);
+  
   return (
     <NativeBaseProvider theme={THEME}>
       <StatusBar
